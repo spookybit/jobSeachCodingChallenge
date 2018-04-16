@@ -1,1 +1,15 @@
+.board {
+  max-width: 70vw;
+  background-color: blue;
+  display: flex;
+  flex-wrap: wrap;
+}
 
+.square {
+  min-width: 20vw;
+  min-height: 20vh;
+  background-color: green;
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+}
