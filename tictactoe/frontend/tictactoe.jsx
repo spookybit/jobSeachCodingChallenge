@@ -6,20 +6,64 @@ class TicTacToe extends React.Component {
 
     this.state = {
       game: [[0,0,0], [0,0,0], [0,0,0]],
-      currentPlayer: 'x'
+      currentPlayer: 'x',
+      won: false
     }
     this.move = this.move.bind(this);
+    this.selectSquare = this.selectSquare.bind(this);
+    this.checkWin = this.checkWin.bind(this);
     this.switchPlayers = this.switchPlayers.bind(this);
   }
 
   move(e) {
-    // console.log(e.target.dataset.square);
     let pos = e.target.dataset.square.split('');
-    let move = this.state.currentPlayer;
     if (this.state.game[pos[0]][pos[1]] === 0) {
-      this.state.game[pos[0]][pos[1]] = move;
+      this.selectSquare(pos);
       this.switchPlayers();
-      this.setState({game : this.state.game});
+    }
+  }
+
+  selectSquare(pos) {
+    let board = this.state.game;
+    let move = this.state.currentPlayer;
+    board[pos[0]][pos[1]] = move;
+    this.checkWin(board);
+    this.setState({game : board});
+  }
+
+  checkWin(board) {
+    function isX(row) {
+      return row.every((x) => x==='x')
+    }
+
+    function isO(row) {
+      return row.every((x) => x==='o')
+    }
+
+    for (let i = 0; i< board.length; i++) {
+      let row = board[i];
+
+      if (isX(row) || isO(row)){
+        this.setState({won: true})
+        return
+      }
+    }
+
+    let col1 = [board[0][0], board[1][0], board[2][0]]
+    let col2 = [board[0][1], board[1][1], board[2][1]]
+    let col3 = [board[0][2], board[1][2], board[2][2]]
+
+    if (isX(col1) || isO(col1) || isX(col2) || isO(col2) || isX(col3) || isO(col3)) {
+      this.setState({won: true})
+      return
+    }
+    
+    let diag1 = [board[0][0], board[1][1], board[2][2]]
+    let diag2 = [board[0][2], board[1][1], board[2][0]]
+
+    if (isX(diag1) || isO(diag1) || isX(diag2) || isO(diag2)) {
+      this.setState({won: true})
+      return
     }
   }
 
