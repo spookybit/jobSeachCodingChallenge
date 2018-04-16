@@ -16,7 +16,7 @@ class Clock extends React.Component{
 
   componentDidMount(){
     let d = new Date();
-    let hours = Math.abs(d.getUTCHours() - 7);
+    let hours = Math.abs(d.getUTCHours() - 6);
     let mins = d.getUTCMinutes();
     let secs = d.getUTCSeconds();
     this.setState(
@@ -29,9 +29,7 @@ class Clock extends React.Component{
   }
 
   clockTicking(){
-    setInterval(function(){
-      this.tick.bind(this)
-    }, 1000)
+    setInterval(this.tick, 1000)
   }
 
   tick() {
@@ -42,19 +40,21 @@ class Clock extends React.Component{
       if (this.state.minutes >= 60) {
         this.state.hours += 1;
         this.state.minutes = 0;
-        if (this.state.hours >= 13) {
-          this.state.hours = 1;
-        }
       }
     }
-    console.log(this.state);
+    if (this.state.hours >= 13) {
+      this.state.hours = 1;
+    }
+    let state = this.state
+    this.setState(state);
   }
 
   render() {
-    // <div>{this.state.hours}</div>
     return(
       <div>
-        <div>lnan</div>
+        <div>{this.state.hours}</div>
+        <div>{this.state.minutes}</div>
+        <div>{this.state.seconds}</div>
       </div>
     )
   }
