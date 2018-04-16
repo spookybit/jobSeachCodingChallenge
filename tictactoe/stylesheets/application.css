@@ -1,8 +1,9 @@
 .board {
-  max-width: 70vw;
+  max-width: 65vw;
   /* background-color: blue; */
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .square {
@@ -13,3 +14,11 @@
   border-style: solid;
   border-color: black;
 }
+
+.reset {
+  width: 100%;
+  text-align: center;
+}
+
+.x {background-color: pink;}
+.o {background-color: purple;}

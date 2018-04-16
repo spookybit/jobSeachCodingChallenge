@@ -13,11 +13,14 @@ class TicTacToe extends React.Component {
     this.selectSquare = this.selectSquare.bind(this);
     this.checkWin = this.checkWin.bind(this);
     this.switchPlayers = this.switchPlayers.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
   move(e) {
     let pos = e.target.dataset.square.split('');
     if (this.state.game[pos[0]][pos[1]] === 0) {
+      let classNames = e.target.className + " " + this.state.currentPlayer;
+      e.target.className = classNames
       this.selectSquare(pos);
       this.switchPlayers();
     }
@@ -57,7 +60,7 @@ class TicTacToe extends React.Component {
       this.setState({won: true})
       return
     }
-    
+
     let diag1 = [board[0][0], board[1][1], board[2][2]]
     let diag2 = [board[0][2], board[1][1], board[2][0]]
 
@@ -75,6 +78,15 @@ class TicTacToe extends React.Component {
     }
   }
 
+  reset() {
+    // let list = document.querySelector('.board').childNodes;
+    
+    let list = document.querySelectorAll('.x, .o');
+    Array.prototype.forEach.call(list, child => child.className = 'square');
+
+    this.setState({game: [[0,0,0], [0,0,0], [0,0,0]]})
+  }
+
   render() {
     return(
       <div className='board'>
@@ -87,6 +99,7 @@ class TicTacToe extends React.Component {
         <div className='square' onClick={this.move} data-square='20'></div>
         <div className='square' onClick={this.move} data-square='21'></div>
         <div className='square' onClick={this.move} data-square='22'></div>
+        <div className='reset' onClick={this.reset}>Reset</div>
       </div>
     )
   }
