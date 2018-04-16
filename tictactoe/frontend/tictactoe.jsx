@@ -19,7 +19,7 @@ class TicTacToe extends React.Component {
     if (this.state.game[pos[0]][pos[1]] === 0) {
       this.state.game[pos[0]][pos[1]] = move;
       this.switchPlayers();
-      this.setState(this.setState);
+      this.setState(this.state);
     }
   }
 
